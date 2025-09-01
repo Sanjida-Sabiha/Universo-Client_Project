@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/aos.css">
+</head>
+<body>
+    <!-- Header Area Start Here -->
+    <header class="bg-bannerBg relative z-50" style="background-image: url('assets/img/homePage/header.svg');">
+        <div class="container">
+            <nav
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-offset="20"
+            data-aos-once="true"
+            class="py-5">
+                <div class="flex justify-between items-center">
+                    <a href="#">
+                        <img src="assets/img/logo.svg" alt="">
+                    </a>
+                    <div class="flex gap-4 items-start">
+                        <ul class="md:block hidden">
+                            <li class="group flex items-center relative"
+                                x-data="{ open: false, languageLabel: 'English (US)' }"
+                                @mouseenter="open = true" @mouseleave="open = false">
+
+                                <!-- Toggle -->
+                                <a href="#" onclick="event.preventDefault()"
+                                class="pb-2 inline-flex items-center font-Gilroy font-normal md:text-xl text-base leading-[100%] text-primaryColor transition ease-in-out duration-500"
+                                @click.prevent="open = !open"
+                                :class="{ 'text-LavenderIndigo': open }">
+                                    <span x-text="languageLabel"></span>
+                                    <svg :class="{ 'rotate-180': open }" class="ml-2 transition-transform duration-200"
+                                        xmlns="http://www.w3.org/2000/svg" width="11" height="6" fill="none" viewBox="0 0 11 6">
+                                        <path d="M1.5 1L5.5 5L9.5 1"
+                                            stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </a>
+
+                                <!-- Dropdown -->
+                                <ul id="language-dropdown"
+                                    class="absolute top-full -left-5 w-36 py-1 list-none bg-white rounded-md hidden z-10 border border-borderColor"
+                                    :class="{ 'block': open, 'hidden': !open }">
+
+                                    <!-- English -->
+                                    <li>
+                                        <a href="#"
+                                        @click.prevent="
+                                            languageLabel = 'English (US)';
+                                            open = false;
+                                            loadContent('en');
+                                        "
+                                        class="text-base font-normal font-Geist block px-5 py-1 text-primaryColor hover:text-btnBg transition ease-in-out duration-500">
+                                            English(US)
+                                        </a>
+                                    </li>
+
+                                    <!-- Portuguese -->
+                                    <li>
+                                        <a href="#"
+                                        @click.prevent="
+                                            languageLabel = 'Português';
+                                            open = false;
+                                            loadContent('pt');
+                                        "
+                                        class="text-base font-normal font-Geist block px-5 py-1 text-primaryColor hover:text-btnBg transition ease-in-out duration-500">
+                                            Português
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <a href="#">
+                            <img class="md:w-auto w-8" src="assets/img/menu.svg" alt="">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="relative md:hidden block mt-5" x-data="{ open: false, languageLabel: 'English (US)' }">
+                    <ul>
+                        <li class="group flex items-start justify-center relative">
+
+                            <!-- Toggle -->
+                            <a href="#"
+                                @click.prevent="open = !open"
+                                class="inline-flex items-center font-Gilroy font-normal md:text-xl text-base leading-[100%] text-primaryColor transition ease-in-out duration-500"
+                                :class="{ 'text-LavenderIndigo': open }">
+                                <span x-text="languageLabel"></span>
+                                <svg :class="{ 'rotate-180': open }"
+                                    class="ml-2 transition-transform duration-200"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="11" height="6" fill="none" viewBox="0 0 11 6">
+                                    <path d="M1.5 1L5.5 5L9.5 1"
+                                            stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+
+                            <!-- Dropdown with transition -->
+                            <div
+                                x-show="open"
+                                x-transition:enter="transition origin-top ease-out duration-300"
+                                x-transition:enter-start="transform -translate-y-0 opacity-0"
+                                x-transition:enter-end="transform translate-y-0 opacity-100"
+                                x-transition:leave="transition origin-top ease-in duration-200"
+                                x-transition:leave-start="transform translate-y-0 opacity-100"
+                                x-transition:leave-end="transform -translate-y-0 opacity-0"
+                                @click.outside="open = false"
+                                class="absolute left-1/2 top-full transform -translate-x-1/2 w-36 mt-2 bg-white rounded-md border border-borderColor overflow-hidden z-10"
+                                style="display: none;"
+                            >
+                                <ul class="py-1">
+                                    <li>
+                                        <a href="#"
+                                        @click.prevent="
+                                            languageLabel = 'English (US)';
+                                            open = false;
+                                            loadContent('en');
+                                        "
+                                        class="md:text-lg text-base leading-7 font-medium font-Gilroy block px-3 py-1 text-primaryColor hover:text-btnBg transition ease-in-out duration-300">
+                                        English(US)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                        @click.prevent="
+                                            languageLabel = 'Português';
+                                            open = false;
+                                            loadContent('pt');
+                                        "
+                                        class="md:text-lg text-base leading-7 font-medium font-Gilroy block px-3 py-1 text-primaryColor hover:text-btnBg transition ease-in-out duration-300">
+                                        Português
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Header Area End Here -->
+
+    <!-- Banner Area Start Here -->
+    <section class="bg-bannerBg md:mb-10 relative md:pt-[100px] pt-10 md:pb-[330px] pb-10 bg-cover bg-no-repeat z-10" style="background-image: url('assets/img/homePage/banner.svg');">
+        <div class="container">
+            <div
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-offset="20"
+            data-aos-once="true"
+            class="mx-auto text-center">
+                <span id="heading_span" class="font-Gilroy font-bold md:text-24xl text-22xl leading-[120%] text-primaryColor">Welcome to Universo Magnánimo</span>
+                <h1 id="heading" class="pt-6 xl:w-1149 w-full mx-auto font-Gilroy font-bold md:text-72xl text-32xl leading-[120%] text-primaryColor">Based in Portugal, Connecting Innovators Worldwide</h1>
+                <p id="description" class="xl:w-1031 w-full mx-auto font-GTAmerica font-medium text-secondaryColor md:text-22xl text-lg leading-[150%] pt-3.5">Nestled in the vibrant tech hub of Portugal, Universo Magnánimo bridges visionary companies across the US, Canada, Europe, and Australia with exceptional IT developers. We're your global gateway to unparalleled technological collaboration.</p>
+                <div class="text-center mt-10">
+                    <a href="#" id="head_btn" class="md:inline-block block text-center rounded-xl bg-btnBg md:py-8 py-6 px-[57px] text-white font-Gilroy font-semibold text-22xl leading-[100%] transition ease-in-out duration-500 hover:bg-primaryColor hover:transition hover:ease-in-out hover:duration-500">Get Started</a>
+                </div>
+            </div>
+            <div class="md:mt-0 mt-10 md:mx-5 md:w-auto w-full md:left-0 lg:bottom-[-10%] md:-bottom-[16%] md:absolute bg-secondaryColor xl:p-14 md:p-10 p-5 rounded-3xl">
+                <div
+                data-aos="fade-down"
+                data-aos-duration="1000"
+                data-aos-offset="20"
+                data-aos-once="true"
+                class="">
+                    <span id="b_span" class="font-Gilroy font-bold text-xl leading-[120%] text-white">A Message from Our Director</span>
+                    <p id="b_span1" class="pt-4 font-Gilroy font-semibold md:text-xl text-base leading-[120%] text-white">Viktor Paul – Founder & Passionate Technologist</p>
+                    <p id="b_p" class="pt-6 font-Gilroy font-normal md:text-22xl text-base leading-[150%] text-white">"App development isn't just about building software; it's about crafting experiences that resonate across continents. Growing up amidst Portugal's rich culture and innovation, I dreamed of connecting brilliant minds worldwide. At Universo Magnánimo, we're turning that dream into reality—transforming ideas into apps that make a difference. Join us, and let's shape the future together."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Area End Here -->
+
+    <!-- Mission Area Start Here -->
+    <section class="xl:pt-[200px] md:pt-[180px] pt-10 md:pb-[100px] pb-10 bg-[#F9F9F9]">
+        <div class="container">
+            <div
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-offset="20"
+            data-aos-once="true"
+            >
+                <h4 id="m_title" class="font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">Our Mission</h4>
+                <p id="m_p" class="font-GTAmerica pt-4 font-medium md:text-22xl text-lg leading-[150%] text-secondaryColor">At Universo Magnánimo, we're on a mission to:</p>
+            </div>
+        </div>
+        <div
+        data-aos="fade-down"
+        data-aos-duration="1000"
+        data-aos-offset="20"
+        data-aos-once="true"
+        class="overflow-hidden ml-5 lg:mr-0 mr-4">
+            <div class="md:mt-12 mt-7 swiper unique">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="bg-white p-6 rounded-xl xl:h-auto lg:h-[180px] md:h-[210px] h-[200px]">
+                            <h4 id="m_boxT" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Connect Globally: </h4>
+                            <p id="m_boxP" class="pt-4 font-GTAmerica font-medium md:text-lg text-base leading-[150%] text-secondaryColor">Uniting companies and developers from the US to Australia, fostering collaborations.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white p-6 rounded-xl xl:h-auto lg:h-[180px] md:h-[210px] h-[200px]">
+                            <h4 id="m_boxT1" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Empower Innovation:</h4>
+                            <p id="m_boxP1" class="pt-4 font-GTAmerica font-medium md:text-lg text-base leading-[150%] text-secondaryColor">Providing a platform where groundbreaking ideas meet the technical expertise to bring them to life.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white p-6 rounded-xl xl:h-auto lg:h-[180px] md:h-[210px] h-[200px]">
+                            <h4 id="m_boxT2" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Cultivate Community: </h4>
+                            <p id="m_boxP2" class="pt-4 font-GTAmerica font-medium md:text-lg text-base leading-[150%] text-secondaryColor">Building a network where professionals share, grow, and succeed together.</p>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="bg-white p-6 rounded-xl xl:h-auto lg:h-[180px] md:h-[210px] h-[200px]">
+                            <h4 id="m_boxT3" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Connect Globally: </h4>
+                            <p id="m_boxP3" class="pt-4 font-GTAmerica font-medium md:text-lg text-base leading-[150%] text-secondaryColor">Uniting companies and developers from the US to Australia, fostering collaborations.</p>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </section>
+    <!-- Mission Area End Here -->
+
+    <!-- About Area Start Here -->
+    <section class="bg-bannerBg">
+        <div class="container">
+            <div class="lg:pt-[150px] md:pt-20 pt-10">
+                <div class="flex lg:flex-row flex-col justify-between items-center xl:gap-[90px] gap-7">
+                    <div
+                    data-aos="fade-down"
+                    data-aos-duration="1000"
+                    data-aos-offset="20"
+                    data-aos-once="true"
+                    class="lg:w-724 w-full">
+                        <h4 id="story_T" class="font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">Who we are</h4>
+                        <p id="story_P" class="md:pt-8 pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Founded in Portugal, a land of explorers and innovators, we carry forward the spirit of discovery. Our team is dedicated to connecting you with top-tier IT talent worldwide, ensuring your projects are handled with the passion and precision they deserve.</p>
+                    </div>
+                    <div
+                    data-aos="zoom-in"
+                    data-aos-duration="1000"
+                    data-aos-offset="20"
+                    data-aos-once="true"
+                    >
+                        <img class="lg:w-706 w-full" src="assets/img/homePage/image-1.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:py-[150px] md:py-20 py-10">
+                <div class="flex lg:flex-row flex-col-reverse items-start xl:gap-[90px] gap-7">
+                    <div
+                    data-aos="zoom-in"
+                    data-aos-duration="1000"
+                    data-aos-offset="20"
+                    data-aos-once="true"
+                    >
+                        <img class="lg:w-724 w-full" src="assets/img/homePage/image-2.png" alt="">
+                    </div>
+                    <div
+                    data-aos="fade-down"
+                    data-aos-duration="1000"
+                    data-aos-offset="20"
+                    data-aos-once="true"
+                    class="lg:w-541 w-full">
+                        <h4 id="do_T" class="font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">What We Do</h4>
+                        
+                        <div class="pt-6">
+                            <h5 id="do_T1" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Global Talent Access:</h5>
+                            <p id="do_P1" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Tap into a diverse pool of skilled developers ready to tackle your challenges.</p>
+                        </div>
+
+                        <div class="pt-6">
+                            <h5 id="do_T2" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Personalized Matching:</h5>
+                            <p id="do_P2" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Our platform aligns your specific needs with developers who share your vision.</p>
+                        </div>
+
+                        <div class="pt-6">
+                            <h5 id="do_T3" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Seamless Collaboration:</h5>
+                            <p id="do_P3" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">With tools designed for efficiency, managing international projects has never been easier.</p>
+                        </div>
+
+                        <div class="pt-6">
+                            <h5 id="do_T4" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Cultural Synergy:</h5>
+                            <p id="do_P4" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Benefit from our understanding of cross-cultural communication to enhance project outcomes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Area End Here -->
+
+    <!-- Developers Area Start Here -->
+    <section class="bg-[#F9F9F9]">
+        <div class="container">
+            <div class="lg:py-[150px] md:py-20 py-10">
+                <div
+                data-aos="fade-down"
+                data-aos-duration="1000"
+                data-aos-offset="20"
+                data-aos-once="true"
+                >
+                    <h4 id="dev_T" class="font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">For Developers</h4>
+                    <div class="md:mt-12 mt-7 grid md:grid-cols-2 grid-cols-1 md:gap-10 gap-4">
+                        <div class="bg-white py-6 md:px-8 px-6 rounded-xl">
+                            <h4 id="dev_T1" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Exciting Opportunities:</h4>
+                            <p id="dev_P1" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Work on impactful projects with companies around the globe.</p>
+                        </div>
+                        <div class="bg-white py-6 md:px-8 px-6 rounded-xl">
+                            <h4 id="dev_T2" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Professional Growth:</h4>
+                            <p id="dev_P2" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Expand your skills and portfolio by tackling diverse challenges.</p>
+                        </div>
+                        <div class="bg-white py-6 md:px-8 px-6 rounded-xl">
+                            <h4 id="dev_T3" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Supportive Network:</h4>
+                            <p id="dev_P3" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Join a community that values your contribution and supports your journey.</p>
+                        </div>
+                        <div class="bg-white py-6 md:px-8 px-6 rounded-xl">
+                            <h4 id="dev_T4" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Fair & Transparent:</h4>
+                            <p id="dev_P4" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Enjoy fair compensation and clear communication every step of the way.</p>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </section>
+    <!-- Developers Area End Here -->
+
+    <!-- Choose Area Start Here -->
+    <section class="lg:mt-[150px] md:mt-20 mt-10">
+        <div class="container">
+            <div class="flex xl:flex-row flex-col-reverse justify-between xl:items-center xl:gap-[90px] gap-7">
+                <div
+                data-aos="zoom-in"
+                data-aos-duration="1000"
+                data-aos-offset="20"
+                data-aos-once="true"
+                >
+                    <img class="xl:w-724 w-full" src="assets/img/homePage/image-3.png" alt="">
+                </div>
+                <div
+                data-aos="fade-down"
+                data-aos-duration="1000"
+                data-aos-offset="20"
+                data-aos-once="true"
+                class="xl:w-650 w-full">
+                    <h4 id="why_T" class="font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">Why Choose Universo Magnánimo?</h4>
+                    
+                    <div class="pt-6 md:w-541 w-full">
+                        <h5 id="why_T1" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Portuguese Excellence, Global Impact:</h5>
+                        <p id="why_P1" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Leveraging Portugal's burgeoning tech scene to serve clients worldwide.</p>
+                    </div>
+
+                    <div class="md:pt-6 pt-4 md:w-541 w-full">
+                        <h5 id="why_T2" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Passionate Leadership:</h5>
+                        <p id="why_P2" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Guided by Viktor Paul's vision and enthusiasm for app development.</p>
+                    </div>
+
+                    <div class="md:pt-6 pt-4 md:w-541 w-full">
+                        <h5 id="why_T3" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Diverse Expertise:</h5>
+                        <p id="why_P3" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Our international team brings a wealth of knowledge from different markets and industries.</p>
+                    </div>
+
+                    <div class="md:pt-6 pt-4 md:w-541 w-full">
+                        <h5 id="why_T4" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Commitment to Quality:</h5>
+                        <p id="why_P4" class="pt-3 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">We uphold the highest standards to deliver solutions that exceed expectations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Choose Area End Here -->
+
+    <!-- Stories Area Start Here -->
+    <section class="lg:mt-[150px] md:mt-20 mt-10 bg-bannerBg">
+        <div class="container">
+            <div
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-offset="20"
+            data-aos-once="true"
+            class="lg:py-[150px] md:py-20 py-10">
+                <h4 id="suc_T" class="text-center font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">Success Stories</h4>
+                <div class="lg:mt-20 mt-7 grid lg:grid-cols-2 grid-cols-1 lg:gap-[60px] gap-7">
+                    <div class="bg-white md:py-10 py-6 md:px-12 px-6 rounded-2xl">
+                        <h5 id="suc_T1" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Transforming Retail in the US</h5>
+                        <p id="suc_P1" class="pt-4 font-GTAmerica font-medium text-xl leading-[150%] text-secondaryColor">A New York-based retailer wanted to enhance their customer's mobile shopping experience. Through Universo Magnánimo, they collaborated with innovative developers who revamped their app, leading to a 40% increase in user engagement.</p>
+                    </div>
+
+                    <div class="bg-white md:py-10 py-6 md:px-12 px-6 rounded-2xl">
+                        <h5 id="suc_T2" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Sustainable Solutions in Europe</h5>
+                        <p id="suc_P2" class="pt-4 font-GTAmerica font-medium text-xl leading-[150%] text-secondaryColor">A German environmental startup sought to create an app that empowers communities to engage in sustainable practices. Our platform connected them with passionate developers, resulting in an award-winning app making waves across Europe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Stories Area End Here -->
+
+    <!-- Global Area Start Here -->
+    <section class="lg:mt-[150px] md:mt-20 mt-10">
+        <div class="container">
+            <div
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-offset="20"
+            data-aos-once="true"
+            >
+                <h4 id="glob_T" class="font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">Our Global Reach</h4>
+                <p id="glob_P" class="pt-5 font-GTAmerica font-medium md:text-22xl text-lg leading-[150%] text-secondaryColor">Operating across four continents, we understand the nuances of different markets:</p>
+                <div class="md:mt-12 mt-4 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 lg:gap-10 gap-5">
+                    <div class="bg-[#CECFFF] py-8 px-6 rounded-xl">
+                        <h4 id="glob_T1" class="font-GTAmerica font-semibold text-24xl leading-[150%] text-secondaryColor">North America:</h4>
+                        <p id="glob_P1" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Staying ahead in the fast-paced tech landscapes of the US and Canada.</p>
+                    </div>
+                    <div class="bg-[#CECFFF] py-8 px-6 rounded-xl">
+                        <h4 id="glob_T2" class="font-GTAmerica font-semibold text-24xl leading-[150%] text-secondaryColor">Europe:</h4>
+                        <p id="glob_P2" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Integrating diverse cultures and regulations to deliver seamless solutions.</p>
+                    </div>
+                    <div class="bg-[#CECFFF] py-8 px-6 rounded-xl">
+                        <h4 id="glob_T3" class="font-GTAmerica font-semibold text-24xl leading-[150%] text-secondaryColor">Australia:</h4>
+                        <p id="glob_P3" class="pt-4 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Navigating the unique demands of the Australian market with innovative strategies.</p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </section>
+    <!-- Global Area End Here -->
+
+    <!-- Heritage Area Start Here -->
+    <section class="lg:mt-[150px] md:mt-20 mt-10 bg-[#F9F9F9]">
+        <div class="container">
+            <div class="lg:py-[150px] md:py-20 py-10">
+                <div
+                data-aos="fade-down"
+                data-aos-duration="1000"
+                data-aos-offset="20"
+                data-aos-once="true"
+                class="flex xl:flex-row flex-col justify-between items-start xl:gap-16 gap-7">
+                    <div>
+                        <h4 id="her_T" class="xl:w-628 w-full font-Gilroy font-bold md:text-64xl text-32xl leading-[120%] text-primaryColor">Embracing Our Portuguese Heritage</h4>
+                        <p id="her_P" class="xl:w-780 w-full pt-6 font-GTAmerica font-medium md:text-22xl text-lg leading-[150%] text-secondaryColor">Portugal isn't just our headquarters—it's the heartbeat of our innovation. With a legacy of exploration, we're inspired to push boundaries and explore new frontiers in technology.</p>
+                        <div class="md:mt-12 mt-7">
+                            <a href="#" id="head_btn1" class="md:inline-block block text-center rounded-xl bg-btnBg md:py-8 py-6 px-[57px] text-white font-Gilroy font-semibold text-22xl leading-[100%] transition ease-in-out duration-500 hover:bg-primaryColor hover:transition hover:ease-in-out hover:duration-500">Get Started</a>
+                        </div>
+                    </div>
+                    <div class="xl:w-641 w-full">
+                        <div class="py-6 md:px-8 px-6 rounded-xl bg-white border-[0.5px] border-borderColor transition ease-in-out duration-300 hover:shadow-boxShadow_1 hover:border-white hover:transition hover:ease-in-out hover:duration-300">
+                            <h4 id="her_T1" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Innovation Hub:</h4>
+                            <p id="her_P1" class="md:pt-4 pt-2 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Leveraging Portugal's growing reputation as a tech haven.</p>
+                        </div>
+
+                        <div class="mt-6 py-6 md:px-8 px-6 rounded-xl bg-white border-[0.5px] border-borderColor transition ease-in-out duration-300 hover:shadow-boxShadow_1 hover:border-white hover:transition hover:ease-in-out hover:duration-300">
+                            <h4 id="her_T2" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Innovation Hub:</h4>
+                            <p id="her_P2" class="md:pt-4 pt-2 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Infusing creativity drawn from our rich artistic and cultural heritage.</p>
+                        </div>
+
+                        <div class="mt-6 py-6 md:px-8 px-6 rounded-xl bg-white border-[0.5px] border-borderColor transition ease-in-out duration-300 hover:shadow-boxShadow_1 hover:border-white hover:transition hover:ease-in-out hover:duration-300">
+                            <h4 id="her_T3" class="font-GTAmerica font-semibold md:text-24xl text-22xl leading-[150%] text-secondaryColor">Strategic Location:</h4>
+                            <p id="her_P3" class="md:pt-4 pt-2 font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-secondaryColor">Positioned at the crossroads of continents, facilitating global collaboration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Heritage Area End Here -->
+
+    <!-- Footer Area Start Here -->
+    <footer class="bg-secondaryColor">
+        <div class="container">
+            <div 
+            data-aos="fade-down"
+            data-aos-duration="1000"
+            data-aos-offset="20"
+            data-aos-once="true"
+            class="md:pt-[72px] pt-10">
+                <a href="#">
+                    <img src="assets/img/footer-logo.svg" alt="">
+                </a>
+
+                <div class="flex lg:flex-row flex-col justify-between items-start pt-12 lg:pb-28 pb-7 xl:gap-0 lg:gap-16 gap-7">
+                    <div>
+                        <a href="#" class="flex md:gap-5 gap-2 items-center font-GTAmerica font-medium text-xl leading-[150%] text-white text-opacity-80">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="40" height="40" rx="6" fill="#282A65"/>
+                                <rect x="0.5" y="0.5" width="39" height="39" rx="5.5" stroke="white" stroke-opacity="0.2"/>
+                                <g clip-path="url(#clip0_50_68)">
+                                <path d="M29.8239 13.9736L23.7583 20.0002L29.8239 26.0267C29.9335 25.7975 30.0001 25.5441 30.0001 25.2736V14.7267C30.0001 14.4561 29.9335 14.2028 29.8239 13.9736Z" fill="white"/>
+                                <path d="M28.2423 12.9688H11.758C11.4874 12.9688 11.2341 13.0353 11.0049 13.1449L18.7573 20.8583C19.4428 21.5438 20.5575 21.5438 21.243 20.8583L28.9954 13.1449C28.7663 13.0353 28.5129 12.9688 28.2423 12.9688Z" fill="white"/>
+                                <path d="M10.1762 13.9736C10.0665 14.2028 10 14.4561 10 14.7267V25.2736C10 25.5442 10.0665 25.7975 10.1762 26.0267L16.2418 20.0002L10.1762 13.9736Z" fill="white"/>
+                                <path d="M22.9298 20.8286L22.0715 21.6869C20.9294 22.8291 19.0709 22.8291 17.9288 21.6869L17.0705 20.8286L11.0049 26.8551C11.2341 26.9648 11.4874 27.0313 11.758 27.0313H28.2423C28.5129 27.0313 28.7663 26.9648 28.9954 26.8551L22.9298 20.8286Z" fill="white"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_50_68">
+                                <rect width="20" height="20" fill="white" transform="translate(10 10)"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            hey@universomagnanimo.xyz
+                        </a>
+                    </div>
+                    <div class="lg:w-770 w-full pt-2">
+                        <p class="font-GTAmerica font-medium md:text-xl text-lg leading-[150%] text-white">Praceta Sebastião da Gama, nº 3, 3º ESQ 2745-837 Massamá
+                            <br/>
+                            <br/>
+                            Queluz, Lisbon Portugal</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Area End Here -->
+
+    <!-- Copyright Area Start Here -->
+    <section class="bg-copyBg md:pt-10 pt-6 pb-6 md:pb-[38px]">
+        <div class="container">
+            <div class="flex md:flex-row flex-col-reverse justify-between items-center relative md:gap-0 gap-7">
+                <p id="foot_P" class="font-Gilroy font-normal md:text-xl text-base leading-[100%] text-white md:text-left text-center">&copy; 2025 Universo Magnanimo All rights reserved.</p>
+                <div class="relative" x-data="{ open: false, languageLabel: 'English (US)' }">
+                    <ul>
+                        <li class="group flex flex-col items-start relative">
+
+                            <!-- Toggle -->
+                            <a href="#"
+                                @click.prevent="open = !open"
+                                class="inline-flex items-center font-Gilroy font-normal md:text-xl text-base leading-[100%] text-white transition ease-in-out duration-500"
+                                :class="{ 'text-LavenderIndigo': open }">
+                                <span x-text="languageLabel"></span>
+                                <svg :class="{ 'rotate-180': open }"
+                                    class="ml-2 transition-transform duration-200"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="11" height="6" fill="none" viewBox="0 0 11 6">
+                                    <path d="M1.5 1L5.5 5L9.5 1"
+                                            stroke="currentColor" stroke-width="1.5"
+                                            stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+
+                            <!-- Dropdown with transition -->
+                            <div
+                                x-show="open"
+                                x-transition:enter="transition origin-top ease-out duration-300"
+                                x-transition:enter-start="transform -translate-y-0 opacity-0"
+                                x-transition:enter-end="transform translate-y-0 opacity-100"
+                                x-transition:leave="transition origin-top ease-in duration-200"
+                                x-transition:leave-start="transform translate-y-0 opacity-100"
+                                x-transition:leave-end="transform -translate-y-0 opacity-0"
+                                @click.outside="open = false"
+                                class="w-36 mt-2 bg-white rounded-md border border-borderColor overflow-hidden z-10"
+                                style="display: none;"
+                            >
+                                <ul class="py-1">
+                                    <li>
+                                        <a href="#"
+                                        @click.prevent="
+                                            languageLabel = 'English (US)';
+                                            open = false;
+                                            loadContent('en');
+                                        "
+                                        class="md:text-lg text-base leading-7 font-medium font-Gilroy block px-3 py-1 text-primaryColor hover:text-btnBg transition ease-in-out duration-300">
+                                        English(US)
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                        @click.prevent="
+                                            languageLabel = 'Português';
+                                            open = false;
+                                            loadContent('pt');
+                                        "
+                                        class="md:text-lg text-base leading-7 font-medium font-Gilroy block px-3 py-1 text-primaryColor hover:text-btnBg transition ease-in-out duration-300">
+                                        Português
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+ 
+            </div>
+
+            
+        </div>
+    </section>
+    <!-- Copyright Area End Here -->
+
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/alpine.min.js" defer></script>
+    <script src="assets/js/aos.js"></script>
+    <script src="assets/js/aos_script.js"></script>
+    <script src="assets/js/translate.js"></script>
+</body>
+</html>
